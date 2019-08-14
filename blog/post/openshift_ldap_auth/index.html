@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Openshift LDAP and Active Directory Authentication Howto">
+  <meta name="generator" content="Hugo 0.55.5" />
+
+  <title> &middot; Kodeworx - Random tech stuff</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="http://kodeworx.net/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Blackburn</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1></h1>
+  <h2>Openshift LDAP and Active Directory Authentication Howto</h2>
+</div>
+<div class="content">
+  <p>I&rsquo;m posting my experience with configuring LDAP and Active Directory Authentication since it took to me a few hours to understand how it works on OpenShift and how I may debug it.
+First things first, it&rsquo;s best to use a Standalone Master or even Minishift to do all the steps and get to a working config you may use in your HA Cluster.
+Having it said, let&rsquo;s get hands dirty.</p>
+
+<p>What you&rsquo;ll need:</p>
+
+<p>1 - A working regular user on your LDAP or AD which doesn&rsquo;t need to have any Admin rights, and it&rsquo;s best to use a dedicated one withouth password expiration. For the purpose of this setup, let&rsquo;s call it openshift_user.</p>
+
+<p>2 - Your LDAP or AD server endpoints. Keep in mind that Openshift at least on version 3.11 doesn&rsquo;t support multiple servers so you&rsquo;ll have to choose one (if you have more than one servers), or:
+2.1 - Use a LDAP Fallback Strategy (<a href="http://openshift......">http://openshift......</a>)
+2.2 - Connect without TLS which is not aconselhado advised.</p>
+
+<p>3 - Your LDAP or AD CA (Certificate Authority) in case you use an encrypted connection, and you should</p>
+
+<p>I&rsquo;ll recommend you to increase the verbosity of master-api containter logs. If you have setup your environment through RPM you change the following line on <code>/etc/origin/master/master.env</code>:</p>
+
+<pre><code>DEBUG_LOGLEVEL=4`
+</code></pre>
+
+<p>Note that default value is <code>2</code></p>
+
+<p>If you already have your LDAP CA file you have to copy it inside <code>/etc/origin/master/</code> folder. For instance let&rsquo;s call it freeipa_ca.crt:</p>
+
+<pre><code>$ sudo cp freeipa_ca.crt /etc/origin/master/
+</code></pre>
+
+<p>Than you can finally edit your <code>/etc/origin/master/master-config.yaml</code> and add your LDAP settings. You&rsquo;ll need to add your settings after the <code>identityProviders</code> key.
+Let&rsquo;s have a look to a working configuration:</p>
+
+<pre><code>  identityProviders:
+  - challenge: true
+    login: true
+    mappingMethod: lookup
+    name: allow_all
+    provider:
+      apiVersion: v1
+      kind: AllowAllPasswordIdentityProvider
+  - name: freeipa
+    challenge: true
+    login: true
+    mappingMethod: claim
+    provider:
+      apiVersion: v1
+      kind: LDAPPasswordIdentityProvider
+      attributes:
+        id:
+        - dn
+        email:
+        - mail
+        name:
+        - cn
+        preferredUsername:
+        - uid
+      bindDN: &quot;uid=openshift_user,cn=users,cn=accounts,dc=example,dc=com&quot;
+      bindPassword: &quot;openshift_password&quot;
+      insecure: false
+      ca: freeipa_ca.crt
+      url: &quot;ldap://server.example.com/cn=users,cn=accounts,dc=example,dc=com?uid&quot;
+</code></pre>
+
+<p>The first thing you have to notice is that if you haven&rsquo;t setup anything on your Openshift deployment, you&rsquo;ll have an default <code>AllowAllPasswordIdentityProvider</code> identity provider, which permits you to login as any user with any password. This provider is called allow_all and you can check out that the standard setup provides some users.</p>
+
+<pre><code>$ oc get users
+admin             1234abcd-87f3-21e9-d610-0050269ae124                     allow_all:admin
+developer         4567efab-8669-13e9-d610-00595795ec24                     allow_all:developer
+sysadmin          8901cdef-11e9-8d4f-9fe7-00405695f2d6                     allow_all:sysadmin
+</code></pre>
+
+<p>You can also find some information with the <code>oc get identity</code> command:</p>
+
+<pre><code>$ oc get identity
+NAME                IDP NAME        IDP USER NAME       USER NAME       USER UID
+allow_all:admin     allow_all       admin               admin           1234abcd-87f3-21e9-d610-0050269ae124
+</code></pre>
+
+<p>The <code>mappingMethod</code> defined to <code>claim</code> means that any new login will be automatically provisioned, which doesn<code>t means it</code>ll gain any default right. On Openshift every new user has no access but may create new Projects. You can change this behavior latter.</p>
+
+<p>Before we start to write our LDAP provider config, it&rsquo;s best to check the credentials and <code>dn</code> with the help of <code>ldapsearch</code> utility.</p>
+
+<pre><code>$ ldapsearch -h server.example.com -b dc=example,dc=com -v -D &quot;uid=openshift_user,cn=users,cn=accounts,dc=example,dc=com&quot; -W &quot;uid=myusername&quot;
+
+ldap_initialize( ldap://server.example.com )
+Enter LDAP Password: 
+filter: uid=myusername
+requesting: All userApplication attributes
+# extended LDIF
+#
+# LDAPv3
+# base &lt;dc=example,dc=com&gt; with scope subtree
+# filter: uid=myusername
+# requesting: ALL
+#
+
+# claudinei.matos, users, compat, ipa.imusicacorp.com
+dn: uid=myusername,cn=users,cn=compat,dc=example,dc=com
+objectClass: posixAccount
+...
+</code></pre>
+
+<p>In this case we&rsquo;ve used the <code>openshift_user</code> to check our own login <code>myusername</code> through our LDAP directory. If this command doesn&rsquo;t work please make sure you have a working credential to authenticate against your server and/or an valid user to look for thorugh your directory. For a standard FreeIPA setup the DN <code>cn=users,cn=accounts,dc=example,dc=com</code> is the default. Please replace <code>dc=example,dc=com</code> with your domain name.</p>
+
+<p>Going forward through the LDAP provider setup, we&rsquo;ll have to define some fields explained right below:</p>
+
+<ul>
+<li><code>kind: LDAPPasswordIdentityProvider</code> - Is the provider used with LDAP or Active Directory</li>
+<li><code>attributes:</code> - Is a map to your OpenLDAP solution fields. You can check all of then over the ldapsearch output, but keep in mind that:
+** <code>id: dn</code> - List of attributes to use as an unique identity to users. Can be <code>dn</code> both on OpenLDAP or AD
+** <code>email: mail</code> - A list of attributes to use as the email address, could be <code>mail</code> on FreeIPA and most OpenLDAP setups
+** <code>name: cn</code> - A list of attributes to use as the display name. Normally is <code>cn</code> which stands to Common Name
+** <code>preferredUsername</code> - List of attributes to use as preferred user name when provisioning a user for this identity. Could be <code>uid</code> on FreeIPA and most OpenLDAP setups</li>
+<li><code>bindDN</code> - The <code>dn</code> used to bind during the search phase. For instance, &ldquo;uid=openshift_user,cn=users,cn=accounts,dc=example,dc=com&rdquo;</li>
+<li><code>bindPassword</code> - Password used to bind during the search phase</li>
+<li><code>insecure: false</code> - If <code>false</code>, a TLS connection is made to the LDAP server and <code>ca</code> is needed. If <code>true</code>, a plain text connection is made to the LDAP server.</li>
+<li><code>url</code> - An RFC 2255 connection string used to connect to your LDAP server and search parameters, for instance, &ldquo;ldap://server.example.com/cn=users,cn=accounts,dc=example,dc=com?uid&rdquo;</li>
+</ul>
+
+<p>If you are connecting to an Active Directory server, some values are slightly differents and we&rsquo;ll figure out below:</p>
+
+<ul>
+<li><code>kind: LDAPPasswordIdentityProvider</code> - Is the provider used with LDAP or Active Directory</li>
+<li><code>attributes:</code> - Is a map to your OpenLDAP solution fields. You can check all of then over the ldapsearch output, but keep in mind that:
+** <code>id: dn</code> - List of attributes to use as an unique identity to users. Can be <code>dn</code> both on OpenLDAP or AD
+** <code>email: mail</code> - An attribute to use as the email address, could be <code>userPrincipalName</code> on AD
+** <code>name: cn</code> - A list of attributes to use as the display name. Normally is <code>cn</code> which stands to Common Name
+** <code>preferredUsername</code> - List of attributes to use as preferred user name when provisioning a user for this identity. Should be <code>sAMAccountName</code> on AD</li>
+<li><code>bindDN</code> - The <code>dn</code> used to bind during the search phase. For instance, &ldquo;CN=Openshift User,OU=users,dc=example,dc=com&rdquo;</li>
+<li><code>bindPassword</code> - Password used to bind during the search phase</li>
+<li><code>ca</code> - Certificate bundle used to validate the LDAP server. The filename is relative to the <code>/etc/origin/master/</code> path.</li>
+<li><code>insecure: false</code> - If <code>false</code>, a TLS connection is made to the LDAP server and <code>ca</code> is needed. If <code>true</code>, a plain text connection is made to the LDAP server.</li>
+<li><code>url</code> - An RFC 2255 connection string used to connect to your LDAP server and search parameters, for instance, &ldquo;ldap://server.example.com/cn=Users,dc=example,dc=com?samAccountName&rdquo;</li>
+</ul>
+
+<p>Restart container</p>
+
+<pre><code>$ sudo /usr/local/bin/master-restart api
+</code></pre>
+
+<p>Listen to logs:</p>
+
+<pre><code>$ oc logs -n kube-system master-api-your-master.example.com --tail 10 -f
+</code></pre>
+
+<p>If your <code>master-api</code> container doesn`t start you may try to get the last logs through master-logs command:</p>
+
+<pre><code>$ sudo /usr/local/bin/master-logs api api
+</code></pre>
+
+<p>If everything is ok but <code>master-api</code> container still refuse to get running you may try do reboot your node, or delete the container if you have a HA Cluster. I&rsquo;m not sure if it&rsquo;s safe to delete this container on a single node setup.</p>
+
+<pre><code>$ oc delete pod master-api-your-master.example.com -n kube-system
+</code></pre>
+
+<p>As long as your <code>master-api</code> container is running</p>
+
+<pre><code>$ oc get pods --all-namespaces | grep master-api`
+...
+kube-system                         master-api-your-master.example.com            2         2h
+...
+</code></pre>
+
+<p>Try to login to OpenShift and check it out if it works.</p>
+
+<pre><code>$ oc login https://console-okd.example.com -u myusername
+Authentication required for https://console-okd.example.com:443 (openshift)
+Username: myusername
+Password: 
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project &lt;projectname&gt;
+
+</code></pre>
+
+<p>If you have a HA Cluster you may try to login on a specific master before you replicate the setup over the other hosts.</p>
+
+<pre><code>oc login https://192.168.0.101 -u myusername --insecure-skip-tls-verify=true
+</code></pre>
+
+<p>If everything is fine you should see some lines like these on your <code>master-api</code> logs:</p>
+
+<ul>
+<li><p>For an OpenLDAP server:</p>
+
+<pre><code>I0619 23:59:01.043254       1 basicauth.go:51] Login with provider &quot;allow_all&quot; failed for login &quot;myusername&quot;
+I0619 23:59:01.069449       1 ldap.go:122] searching for (&amp;(objectClass=*)(uid=myusername))
+I0619 23:59:01.081760       1 ldap.go:139] found dn=&quot;uid=myusername,cn=users,cn=accounts,dc=example,dc=com&quot; for (&amp;(objectClass=*)(uid=myusername))
+I0619 23:59:01.096297       1 wrap.go:42] GET /apis/user.openshift.io/v1/identities/freeipa:uid=myusername,cn=users,cn=accounts,dc=exmaple,dc=com: (2.029694ms) 404 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 127.0.0.1:34354]
+I0619 23:59:01.098495       1 wrap.go:42] GET /apis/user.openshift.io/v1/users/myusername: (1.668434ms) 404 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 127.0.0.1:34354]
+I0619 23:59:01.108249       1 ldap.go:67] identitymapper: got userIdentityMapping: &amp;user.DefaultInfo{Name:&quot;myusername&quot;, UID:&quot;5aec33fe-9307-11e9-9fca-00505695e124&quot;, Groups:[]string(nil), Extra:map[string][]string(nil)}
+I0619 23:59:01.108266       1 basicauth.go:54] Login with provider &quot;freeipa&quot; succeeded for login &quot;myusername&quot;: &amp;user.DefaultInfo{Name:&quot;myusername&quot;, UID:&quot;5aec33fe-9307-11e9-9fca-00505695e124&quot;, Groups:[]string(nil), Extra:map[string][]string(nil)}
+I0619 23:59:01.108284       1 authenticator.go:54] OAuth authentication succeeded: &amp;user.DefaultInfo{Name:&quot;myusername&quot;, UID:&quot;5aec33fe-9307-11e9-9fca-00505695e124&quot;, Groups:[]string(nil), Extra:map[string][]string(nil)}
+I0619 23:59:01.116583       1 wrap.go:42] GET /apis/oauth.openshift.io/v1/oauthclientauthorizations/myusername:openshift-challenging-client: (8.114051ms) 404 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 127.0.0.1:34354]
+I0619 23:59:01.156035       1 wrap.go:42] GET /apis/user.openshift.io/v1/users/myusername: (1.769995ms) 200 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 192.168.0.1:60816]
+</code></pre></li>
+</ul>
+
+<p>For an Active Directory server:</p>
+
+<pre><code>I0620 00:18:49.513445       1 ldap.go:122] searching for (&amp;(objectClass=*)(samaccountname=myusername))
+I0620 00:18:49.514174       1 ldap.go:139] found dn=&quot;CN=My Username,OU=IM-USERS,DC=example,DC=com&quot; for (&amp;(objectClass=*)(samaccountname=myusername))
+I0620 00:18:49.520484       1 wrap.go:42] GET /apis/user.openshift.io/v1/users/myusername: (1.670994ms) 404 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 127.0.0.1:43366]
+I0620 00:18:49.530471       1 ldap.go:67] identitymapper: got userIdentityMapping: &amp;user.DefaultInfo{Name:&quot;myusername&quot;, UID:&quot;af56f4cf-32ba-1fe9-1a3e-0c5d5e95e124&quot;, Groups:[]string(nil), Extra:map[string][]string(nil)}
+I0620 00:18:49.530486       1 basicauth.go:54] Login with provider &quot;activedirectory&quot; succeeded for login &quot;myusername&quot;: &amp;user.DefaultInfo{Name:&quot;myusername&quot;, UID:&quot;af56f4cf-32ba-1fe9-1a3e-0c5d5e95e124&quot;, Groups:[]string(nil), Extra:map[string][]string(nil)}
+I0620 00:18:49.530529       1 authenticator.go:54] OAuth authentication succeeded: &amp;user.DefaultInfo{Name:&quot;myusername&quot;, UID:&quot;af56f4cf-32ba-1fe9-1a3e-0c5d5e95e124&quot;, Groups:[]string(nil), Extra:map[string][]string(nil)}
+I0620 00:18:49.532735       1 wrap.go:42] GET /apis/oauth.openshift.io/v1/oauthclientauthorizations/myusername:openshift-challenging-client: (1.970192ms) 404 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 127.0.0.1:43366]
+I0620 00:18:49.590815       1 wrap.go:42] GET /apis/user.openshift.io/v1/users/myusername: (1.714394ms) 200 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 192.168.0.101:41592]
+</code></pre>
+
+<p>Sometimes during our tests, user get created over the <code>allow_all</code> provider or even with wrong identity settings. This specially happens when working on a HA Cluster and when you haven&rsquo;t removed or disabled <code>allow_all</code> provider.
+In this case it&rsquo;s good to use <code>oc get users</code> and/or <code>oc get identity</code> to check if the user has been created and if necessary, to delete it.</p>
+
+<pre><code>$ oc delete user myusername
+user.user.openshift.io &quot;myusername&quot; deleted
+
+$ oc delete identity freeipa:uid=myusername,cn=users,cn=accounts,dc=example,dc=com
+identity.user.openshift.io &quot;freeipa:uid=myusername,cn=users,cn=accounts,dc=example,dc=com&quot; deleted
+</code></pre>
+
+<p>And, that`s it. If everything is fine you can now replicate the setup over the other hosts of your HA Cluster.</p>
+
+<p>Note that if you have a HA Cluster you have to reproduce the steps above over each Master host, but before you do it, try to login over the host if just changed the config.</p>
+
+<pre><code>$ sudo cat /etc/origin/master/master-config.yaml | ssh your-master02.example.com &quot;sudo tee /etc/origin/master/master-config.yaml 
+$ ssh your-master02.example.com &quot;sudo /usr/local/bin/master-restart api&quot;
+</code></pre>
+
+<p>Wait until the master api is up and running and proceed to your other servers.</p>
+
+</div>
+
+</div>
+</div>
+<script src="http://kodeworx.net/js/ui.js"></script>
+<script src="http://kodeworx.net/js/menus.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'Your Google Analytics tracking ID', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+</body>
+</html>
+

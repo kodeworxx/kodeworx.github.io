@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.55.5" />
+
+  <title> &middot; Kodeworx - Random tech stuff</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="http://kodeworx.net/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Blackburn</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1></h1>
+  <h2></h2>
+</div>
+<div class="content">
+  
+
+<p>Although OKD or Openshigt projects has such a very good documentation, I&rsquo;ve got in some troubles on my first setup attempts so I&rsquo;ve decided to share some information to help newcomers to install Openshift.</p>
+
+<p>You may run all the ansible setup through an external control machine or directly on your master node.
+Please ensure you save your copy of ansible inventory for future needs.</p>
+
+<ol>
+<li>Everything begins with a correct setup of your inventory (inventory/hosts.ini)</li>
+</ol>
+
+<p>1.1. Add your masters both on <code>masters</code> and <code>etcd</code> sections. If you have dedicated etcd nodes please add it in the correct section.</p>
+
+<pre><code>[masters]
+okd-masters-0[1:3].example.com
+
+[etcd]
+okd-masters-0[1:3].example.com
+</code></pre>
+
+<p>1.2. For a production environment you should setup at least two <code>infra</code> nodes.
+#FIXME: Add documentation references about the minimal number of infra nodes</p>
+
+<pre><code>[infra]
+okd-infra-0[1:3].example.com
+</code></pre>
+
+<p>1.3. You should add both your masters, etcd and infra nodes together with your compute nodes.
+You shall also define each host role with <code>openshift_node_group_name</code></p>
+
+<pre><code>[nodes]
+okd-masters-0[1:3].example.com openshift_node_group_name=&quot;node-config-master&quot;
+okd-infra-0[1:3].example.com openshift_node_group_name=&quot;node-config-infra&quot;
+okd-compute-0[1:3].example.com openshift_node_group_name=&quot;node-config-compute&quot;
+</code></pre>
+
+<p>1.4. If you are using an host with HA Proxy as the cluster Load Balancer (not recommended for Production environments) you need to add a <code>lb</code> section</p>
+
+<pre><code>[lb]
+okd-lb-01.example.com
+</code></pre>
+
+<p>#FIXME: tell about <code>lb</code> section</p>
+
+<p>1.5. All your settings goes on <code>OSEv3:vars</code> sections but you need to add some node groups before</p>
+
+<pre><code>[OSEv3:children]
+masters
+nodes
+etcd
+</code></pre>
+
+<p>1.6.</p>
+
+<p>[OSEv3:vars]</p>
+
+<h1 id="deployment-type-origin-for-okd-or-xxx-for-openshift">Deployment type: origin for OKD or XXX for Openshift</h1>
+
+<p>openshift_deployment_type=origin</p>
+
+<h1 id="use-firewalld-or-iptables-otherwise-if-false">Use Firewalld or IPTables otherwise (if False)</h1>
+
+<p>os_firewall_use_firewalld=True</p>
+
+<h1 id="defines-ha-method-when-deploying-multiple-masters-nowadays-you-should-use-native">Defines HA method when deploying multiple masters. Nowadays you should use Native</h1>
+
+<p>openshift_master_cluster_method=native</p>
+
+<h1 id="defines-internal-cluster-hostname">Defines internal cluster hostname</h1>
+
+<p>openshift_master_cluster_hostname=console-internal.example.com</p>
+
+<h1 id="defines-public-cluster-hostname">Defines public cluster hostname</h1>
+
+<p>openshift_master_cluster_public_hostname=console.example.com</p>
+
+<h1 id="define-default-subdomain-for-routed-applications">Define default subdomain for routed applications</h1>
+
+<p>openshift_master_default_subdomain=apps.example.com</p>
+
+<h1 id="networking-subnets-should-be-private-and-must-not-conflict-with-any-existing-blocks-in-your-infrastructure-to-which-pods-nodes-or-the-master-may-require-access">Networking: subnets should be private and must not conflict with any existing blocks in your infrastructure to which pods, nodes or the master may require access</h1>
+
+<h1 id="pods-network-block">Pods network block</h1>
+
+<p>osm_cluster_network_cidr=10.128.0.0/14</p>
+
+<h1 id="size-of-the-per-host-subnet-allocated-for-pod-ips-defalt-to-9-subnets-with-23-bits-netmask">Size of the per host subnet allocated for pod IPs. Defalt to 9 (subnets with 23 bits netmask)</h1>
+
+<p>osm_host_subnet_length=9</p>
+
+<h1 id="services-network-block">Services network block,</h1>
+
+<p>openshift_portal_net=10.90.0.0/16</p>
+
+<h1 id="master-api-port">Master API Port</h1>
+
+<p>openshift_master_api_port=443</p>
+
+<h1 id="master-console-port">Master console Port</h1>
+
+<p>openshift_master_console_port=443</p>
+
+<h1 id="disable-some-checks">Disable some checks</h1>
+
+<p>openshift_disable_check=disk_availability,memory_availability</p>
+
+<h1 id="ansible-user-if-not-root">Ansible user if not root</h1>
+
+<p>ansible_user=myuser</p>
+
+<h1 id="become-if-not-root">Become if not root</h1>
+
+<p>ansible_become=yes</p>
+
+<h1 id="enable-elk-stack-for-logging">Enable ELK Stack for logging</h1>
+
+<p>openshift_logging_install_logging=true
+openshift_logging_es_pvc_dynamic=true
+openshift_logging_es_pvc_size=100Gi
+openshift_logging_es_cluster_size=3
+openshift_logging_es_number_of_replicas=1</p>
+
+<h1 id="enable-metrics">Enable Metrics</h1>
+
+<p>openshift_metrics_install_metrics=true
+openshift_metrics_storage_volume_size=20Gi
+openshift_metrics_cassandra_storage_type=dynamic
+openshift_metrics_duration=7
+openshift_metrics_resolution=30s</p>
+
+<pre><code>
+2. Setup your master nodes with dedicated storage to Docker with LVM.
+If docker is already initialized please stop it and clean up /var/lib/docker
+
+</code></pre>
+
+<p>$ echo &ldquo;STOREAGE_DRIVER=overlay2
+DEVS=/dev/sdb
+VG=docker-vg&rdquo; | sudo tee /etc/sysconfig/docker-storage-setup</p>
+
+<p>$ sudo docker-storage-setup</p>
+
+<pre><code>
+3. Use fully qualified names for your hosts
+
+4. Meet the required hardware or tell setup to ignore checks
+
+5. Run prerequisites.yml playbook
+
+</code></pre>
+
+<p>$ ansible-playbook -i inventory/hosts.ini playbooks/prerequisites.yml</p>
+
+<pre><code>
+6. Run deploy_cluster.yml playbook
+
+</code></pre>
+
+<p>$ ansible-playbook -i inventory/hosts.ini playbooks/deploy_cluster.yml</p>
+
+<pre><code>
+If the deploy fails you may check the message for reaston it 'd failed and rerun this task. For instance you may comment already executed playbooks.
+
+</code></pre>
+
+<p>#- import_playbook: openshift-checks/private/install.yml
+#
+#- import_playbook: openshift-node/private/bootstrap.yml
+```</p>
+
+<ol>
+<li>Common errors during deploy</li>
+</ol>
+
+<p>7.1. If you have any network communication problem between nodes, the Bootstrap Step mail fail. Please be sure each node can access all the other nodes of the cluster.</p>
+
+<p>7.2. If Node Join step fail, you may haven&rsquo;t configured your nodes with their fully qualified names.
+Please use <code>hostnamectl set-hostname hostname.example.com</code> to setup your node. You may run <code>hostname</code> to check if it returns just your hostname or hostname.example.com.</p>
+
+<p>7.3. In case you are deploying an HA setup, you must configure your LB with the Master nodes just before you start deploy or it will fail.</p>
+
+<p>7.4. Your apps endpoint needes a separated LB as well</p>
+
+</div>
+
+</div>
+</div>
+<script src="http://kodeworx.net/js/ui.js"></script>
+<script src="http://kodeworx.net/js/menus.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'Your Google Analytics tracking ID', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+</body>
+</html>
+
