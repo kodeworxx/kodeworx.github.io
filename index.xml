@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Index Page on Kodeworx - Random tech stuff</title>
-    <link>http://kodeworx.net/</link>
-    <description>Recent content in Index Page on Kodeworx - Random tech stuff</description>
+    <title>Welcome to Kodeworx.net on Kodeworx - Random tech stuff</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Welcome to Kodeworx.net on Kodeworx - Random tech stuff</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 09 May 2019 22:57:27 -0300</lastBuildDate>
     
-	<atom:link href="http://kodeworx.net/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title></title>
-      <link>http://kodeworx.net/blog/post/openshift_ldap_auth/</link>
-      <pubDate>Tue, 06 Aug 2019 00:00:00 +0000</pubDate>
+      <title>Openshift - LDAP Auth</title>
+      <link>http://localhost:1313/openshift_ldap_auth/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/blog/post/openshift_ldap_auth/</guid>
-      <description>I&amp;rsquo;m posting my experience with configuring LDAP and Active Directory Authentication since it took to me a few hours to understand how it works on OpenShift and how I may debug it. First things first, it&amp;rsquo;s best to use a Standalone Master or even Minishift to do all the steps and get to a working config you may use in your HA Cluster. Having it said, let&amp;rsquo;s get hands dirty.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://kodeworx.net/blog/post/openshift/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://kodeworx.net/blog/post/openshift/</guid>
-      <description>Although OKD or Openshigt projects has such a very good documentation, I&amp;rsquo;ve got in some troubles on my first setup attempts so I&amp;rsquo;ve decided to share some information to help newcomers to install Openshift.
-You may run all the ansible setup through an external control machine or directly on your master node. Please ensure you save your copy of ansible inventory for future needs.
- Everything begins with a correct setup of your inventory (inventory/hosts.</description>
+      <guid>http://localhost:1313/openshift_ldap_auth/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m posting my experience with configuring LDAP and Active Directory Authentication since it took to me a few hours to understand how it works on Openshift / OKD and how I may debug it.
+First things first, it&amp;rsquo;s best to use a Standalone Master or even Minishift to do all the steps and get to a working config you may use in your HA Cluster.
+Having it said, let&amp;rsquo;s get hands dirty.&lt;/p&gt;</description>
     </item>
     
   </channel>
