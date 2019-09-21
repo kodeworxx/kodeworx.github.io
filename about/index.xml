@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>We are Kodeworx on Kodeworx - Random tech stuff</title>
-    <link>http://localhost:1313/about/</link>
+    <link>http://kodeworx.net/about/</link>
     <description>Recent content in We are Kodeworx on Kodeworx - Random tech stuff</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 09 May 2019 22:57:27 -0300</lastBuildDate>
     
-	<atom:link href="http://localhost:1313/about/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://kodeworx.net/about/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
