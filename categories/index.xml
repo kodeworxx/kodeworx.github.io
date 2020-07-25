@@ -1,15 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Kodeworx - Random tech stuff</title>
+    <title>Categories on Kodeworx</title>
     <link>http://kodeworx.net/categories/</link>
-    <description>Recent content in Categories on Kodeworx - Random tech stuff</description>
+    <description>Recent content in Categories on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://kodeworx.net/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cloud</title>
+      <link>http://kodeworx.net/categories/cloud/</link>
+      <pubDate>Sat, 25 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://kodeworx.net/categories/cloud/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Auth</title>

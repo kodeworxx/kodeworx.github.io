@@ -1,6 +1,47 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://kodeworx.net/posts/</loc>
+    <lastmod>2020-07-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://kodeworx.net/tags/aws/</loc>
+    <lastmod>2020-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://kodeworx.net/categories/</loc>
+    <lastmod>2020-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://kodeworx.net/categories/cloud/</loc>
+    <lastmod>2020-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://kodeworx.net/posts/managing-aws-the-right-way-part-1/</loc>
+    <lastmod>2020-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://kodeworx.net/tags/organization/</loc>
+    <lastmod>2020-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://kodeworx.net/tags/</loc>
+    <lastmod>2020-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://kodeworx.net/tags/tags/</loc>
+    <lastmod>2020-07-25T00:00:00+00:00</lastmod>
+  </url>
   
   <url>
     <loc>http://kodeworx.net/tags/active-directory/</loc>
@@ -9,11 +50,6 @@
   
   <url>
     <loc>http://kodeworx.net/categories/auth/</loc>
-    <lastmod>2019-09-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://kodeworx.net/categories/</loc>
     <lastmod>2019-09-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -38,28 +74,13 @@
   </url>
   
   <url>
-    <loc>http://kodeworx.net/openshift_ldap_auth/</loc>
+    <loc>http://kodeworx.net/posts/openshift_ldap_auth/</loc>
     <lastmod>2019-09-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://kodeworx.net/categories/orchestration/</loc>
     <lastmod>2019-09-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://kodeworx.net/post/</loc>
-    <lastmod>2019-09-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://kodeworx.net/tags/</loc>
-    <lastmod>2019-09-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://kodeworx.net/about/</loc>
-    <lastmod>2019-05-09T22:57:27-03:00</lastmod>
   </url>
   
   <url>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+    <title>Managing AWS the right way - Part 1 - Kodeworx</title>
+
+    <style type="text/css">
+        img.wp-smiley,
+        img.emoji {
+            display: inline !important;
+            border: none !important;
+            box-shadow: none !important;
+            height: 1em !important;
+            width: 1em !important;
+            margin: 0 .07em !important;
+            vertical-align: -0.1em !important;
+            background: none !important;
+            padding: 0 !important;
+        }
+    </style>
+    <link rel='stylesheet' href='http://kodeworx.net/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='http://kodeworx.net/css/custom.css' type='text/css' media='all' />
+        
+</head>
+    <body class="two-column">
+        <a href="#content">Skip to content</a>
+<div class="wrapper">
+    <header role="banner" class="banner widgets columns-1">
+        <a href="/" rel="home">
+            <h1 class="site">Kodeworx</h1>
+            <p></p>
+        </a>
+        <nav role="navigation" aria-label="Primary Navigation">
+
+            <ul class="menu">
+                <li class="menu-item "><a class="menu__link" href="/about/">ABOUT</a></li>
+            </ul>
+            <select onChange="location.href=value;">
+                <option value="/about/" class="menu-item menu-item-type-custom menu-item-object-custom" >ABOUT</option>
+            </select>
+        </nav>
+    </header>
+
+    <br>
+    <div style="width: 100%; max-height: 100px; text-align: center;">
+       
+</div>
+
+    <div class="breadcrumbs">
+        
+    </div>
+        <div id="content" class="content">
+
+<main role="main">
+    <article role="article" class="post type-post format-standard hentry">
+        <header class="post-header">
+            <h1>Managing AWS the right way - Part 1</h1>
+            <div class="post-details">
+                <a rel="bookmark">
+                    <time datetime="2020-07-25T725:120:06">2020-07-25</time>
+                </a>
+				
+<span style="float: right;">
+    <div id="fb-root" style="height: 100%;"></div>
+    
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+    
+    <div class="fb-share-button" data-href="http://kodeworx.net/posts/managing-aws-the-right-way-part-1/" data-layout="button_count" data-size="small">
+        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkodeworx.net%2fposts%2fmanaging-aws-the-right-way-part-1%2f" class="fb-xfbml-parse-ignore">Share</a>
+    </div>
+    &nbsp;
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Managing AWS the right way - Part 1" data-url="http://kodeworx.net/posts/managing-aws-the-right-way-part-1/" data-show-count="false">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    &nbsp;
+    
+</span>
+
+            </div>
+        </header>
+
+        <div class="post-content">
+            <p>If you are new to AWS or even if you are running it for a long time, you probably have just one account holding all your resources, and I bet you asked yourself at least once if there is any way to better organize your resources, manage their access and split your billing through your company cost structure.</p>
+<p>Maybe you already manage multiple independent accounts and from time to time has to apply all the security and other good best practices you have just found around on all accounts to have them all standardized.</p>
+<p>If you catched yourself answering yes for any of these, you are not alone, actually you probably are part of the majority part of AWS consumers, and this is not exactly your fault.</p>
+<p>Keeping updated about all AWS features, services and guidelines is really hard, to not say it’s almost impossible. Those guys there really do their best to keep us busy learning their new stuff.</p>
+<p>So, what is the best way to better organize your resources, improve your projects security, and split up your billing? The answer is not that simple and you’ll find out there are plenty of ways to do it.</p>
+<p>Resource Tagging, Multi Accounts, Organizational Units, Landing Page and Control Tower are some of the ways on how to organize your AWS resources. You can choose a few of these approaches or put them all together.</p>
+<p>Over this series I’ll share a bit about my experience on these subjects, some principles, ideas and caveats. Let’s figure out what the benefits are in each case.</p>
+<h2 id="tagging-your-resources">Tagging your resources</h2>
+<p>If you are not tagging your resources yet, please make yourself a favor and start to do it ASAP. Tagging is not only a way to split up your Billing account through your company cost structure, but it can also help you better organize your resources and find all your ‘Project X’ related resources wherever you are looking for it from the Console, API or CLI, and best of all, it’s totally free of charge.</p>
+<p>According to AWS <a href="https://d1.awsstatic.com/whitepapers/aws-tagging-best-practices.pdf">Tagging Best Practices</a> whitepaper, those are the main Tagging use cases:</p>
+<ul>
+<li>Console Organization and Resource Groups</li>
+<li>Cost Allocation</li>
+<li>Automation</li>
+<li>Operations Support</li>
+<li>Access Control</li>
+<li>Security Risk Management</li>
+</ul>
+<p>Before starting to use Tags, take a time reading the AWS Official Documentation about <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html">Tagging</a> and also the whitepaper about <a href="https://d1.awsstatic.com/whitepapers/aws-tagging-best-practices.pdf">Tagging Best Practices</a>.</p>
+<p>Have a time structuring a good Tag Plan that represents your company and projects needs but if you are in a rush I recommend you to add at least a pair of <strong><em>Env</em></strong> and <strong><em>Project</em></strong> tags to identify both the Environment and Project of which a resource belongs.</p>
+<p>Note that almost all kinds of resources on AWS support Tags, if not all, and  the majority uses the tag <strong><em>Name</em></strong> to identify the resource name on the console, so even if you are not applying any specific tag, you probably have at least the <strong><em>Name</em></strong> tag, like in the EC2 visible name for example.</p>
+<h4 id="warning-both-_tags_-and-their-_values_-are-case-sensitive-so-keep-it-consistent-and-dont-mix-_env_--with-_env_-or-_env_-with-values-_prod_-_prod_-or-_prd_-for-example-its-really-easy-to-have-this-happening">Warning: Both <em>Tags</em> and their <em>Values</em> are case sensitive, so keep it consistent and don’t mix <strong><em>Env</em></strong>  with <strong><em>ENV</em></strong> or <strong><em>env</em></strong>, with values <strong><em>PROD</em></strong>, <strong><em>prod</em></strong> or <strong><em>Prd</em></strong>, for example. It’s really easy to have this happening.</h4>
+<h3 id="manage-your-resources-tags">Manage your resources Tags</h3>
+<p>While you can search for specific resources with a Tag on some of AWS Services, like on the _EC2 Instances _section, or through the CLI, the best way to search and manage all your resources tags in an easy way is through the <em>Tag Editor</em> in the AWS Console. You can access it following these steps:</p>
+<ol>
+<li>From the AWS Management Console, click on <em>Resource Groups</em> on the upper bar, right beside the <em>Services</em> menu</li>
+<li>In the navigation menu, choose <em>Tag Editor</em></li>
+</ol>
+<p>On this example we’ll look for all the <strong><em>EC2 instances</em></strong> on <strong><em>All regions</em></strong> which doesn’t have a <strong><em>Env</em></strong> tag applied.</p>
+<p><img src="images/tag-editor-search.png" alt="alt-text" title="Tag Editor - Search"></p>
+<p>Looking through the results, we can see two instances from different regions, and what’s interesting here is that both resources already have some tags.</p>
+<p><img src="images/tag-editor-results.png" alt="alt-text" title="Tag Editor  - Results"></p>
+<p>What’s interesting here is that both resources already have some tags applied. Let’s take a deeper look on the first one.</p>
+<p>As we can see, it has a <strong><em>Name</em></strong> tag as I’ve stated before, but it also does have a <strong><em>Project</em></strong> tag.</p>
+<p><img src="images/tag-editor-resource-tags-details.png" alt="alt-text" title="Tag Editor - Resource tags details"></p>
+<p>From this same interface we can correct this situation and apply the <strong><em>Env</em></strong> tag to our resources in a batch, just close the details window and do the following:</p>
+<ol>
+<li>
+<p>Select the resources you want to change current tags and values, and click on the orange button _Manage tags of selected resources
+<img src="images/tag-editor-select-resources-to-edit.png" alt="alt-text" title="Tag Editor - Select resources to edit"></p>
+</li>
+<li>
+<p>Add, remove or change the desired tags and click on the orange button <em>Review and apply tag changes</em>
+<img src="images/tag-editor-add-remove-change-tags.png" alt="alt-text" title="Tag Editor - Add, Remove or Change Tags"></p>
+</li>
+<li>
+<p>Review the changes and click on <em>Apply changes to all selected</em>
+<img src="images/tag-editor-review-edition-changes.png" alt="alt-text" title="Tag Editor - Review edition changes"></p>
+</li>
+</ol>
+<h3 id="enable-cost-allocation-tags">Enable Cost Allocation Tags</h3>
+<p>Now that we have some tags applied to identify our Projects and Environments, it’s time to enable Cost Allocation Tags on our Billing. To do so, let’s go through this simple steps:</p>
+<ol>
+<li>
+<p>Sign in to the AWS Management Console and open the Billing and Cost Management console
+<img src="images/aws-menu-billing.png" alt="alt-text" title="AWS Home - Menu"></p>
+</li>
+<li>
+<p>In the navigation pane, choose Cost Allocation Tags
+<img src="images/billing-dashboard.png" alt="alt-text" title="Billing &amp; Cost Management Dashboard"></p>
+</li>
+<li>
+<p>Under <em>AWS-Generated Cost Allocation Tags</em> or <em>User-Defined Cost Allocation Tags</em>, choose the tags you want to use to filter your Billing and click on the blue button <em>Activate</em>
+<img src="images/billing-dashboard-allocation-tags.png" alt="alt-text" title="Billing &amp; Cost Management - Allocation Tags"></p>
+</li>
+<li>
+<p>After a few days, we’ll be able to see our detailed billing splitted by our tags, like in the example below:
+<img src="images/billing-dashboard-billing-by-tags.png" alt="alt-text" title="Billing &amp; Cost Management - Billing by Tags"></p>
+</li>
+</ol>
+<h3 id="tag-policies">Tag Policies</h3>
+<p>If you are taking Tags for serious, it could be great to apply policies to ensure new resources are being tagged on creation time. This AWS Blog shows you how to enable and create <a href="https://aws.amazon.com/blogs/aws/new-use-tag-policies-to-manage-tags-across-multiple-aws-accounts/">Tag Policies</a>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Through those simple steps we started tagging our resources, so we can now have it better organized, and as a bonus we can also see our billing cost split by our Tags, but our journey is just beginning.
+On the next posts of this series we’ll look over other AWS Services and Tools to help us manage our accounts with a consistent, organized, secure and ready to grow environment.</p>
+        </div>
+
+        <footer class="post-footer">
+            
+            <span class="post-categories">
+                
+                <a href="http://kodeworx.net/categories/cloud" rel="tag">Cloud</a>
+                
+            </span>
+            
+
+            
+            <span class="post-tags">
+                
+                <a href="http://kodeworx.net/tags/aws" rel="tag">aws</a>&emsp;
+                
+                <a href="http://kodeworx.net/tags/organization" rel="tag">organization</a>&emsp;
+                
+                <a href="http://kodeworx.net/tags/tags" rel="tag">tags</a>&emsp;
+                
+                <a href="http://kodeworx.net/tags/" rel="tag"></a>&emsp;
+                
+            </span>
+            
+        </footer>
+        
+<table cellspacing="15" style="width:100%; border: none;">
+    <tr>
+        <td style="text-align: center; border: none; padding: 0px;">
+        </td>
+        <td style="text-align: center; border: none; padding: 0px;">
+        </td>
+    </tr>
+</table>
+
+        
+    </article>
+
+    
+
+</main>
+
+
+        <div class="sidebar1 widgets columns-1">
+
+    <aside>
+    
+</aside>
+    <aside class="widget widget_categories">
+        <h2>Categories</h2>
+        <ul class="widget__list"><li class="cat-item cat-item-2">
+                <a href="/categories/auth">Auth (1)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/cloud">Cloud (1)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/containers">Containers (1)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/orchestration">Orchestration (1)</a>
+            </li>
+        </ul>
+    </aside>
+
+    <aside class="widget widget_tag_cloud">
+        <h2>Tags</h2>
+        <div class="tagcloud"><a class="tag-cloud-link" href="/tags/active-directory" title="active-directory" style="font-size: 12pt;">active directory</a>&emsp;<a class="tag-cloud-link" href="/tags/aws" title="aws" style="font-size: 12pt;">aws</a>&emsp;<a class="tag-cloud-link" href="/tags/kubernetes" title="kubernetes" style="font-size: 12pt;">kubernetes</a>&emsp;<a class="tag-cloud-link" href="/tags/ldap" title="ldap" style="font-size: 12pt;">ldap</a>&emsp;<a class="tag-cloud-link" href="/tags/openshift" title="openshift" style="font-size: 12pt;">openshift</a>&emsp;<a class="tag-cloud-link" href="/tags/organization" title="organization" style="font-size: 12pt;">organization</a>&emsp;<a class="tag-cloud-link" href="/tags/tags" title="tags" style="font-size: 12pt;">tags</a>&emsp;
+        </div>
+    </aside>
+
+    <aside class="widget widget_recent_entries">
+        <h2>Recent Posts</h2>
+        <ul>
+        </ul>
+    </aside>
+
+    <aside class="widget widget_archive">
+        <h2>Archives</h2>
+        <ul>
+        </ul>
+    </aside>
+
+</div>
+        </div>
+        </div>
+<footer role="contentinfo" class="document-footer contentinfo widgets columns-1">
+
+    <aside class="widget widget_text">
+        <div class="textwidget">
+            <p>© Kodeworx / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/tosi29/inkblotty" target="_blank">Inkblotty</a></p>
+        </div>
+    </aside>
+</footer>
+</div>
+
+    </body>
+</html>
