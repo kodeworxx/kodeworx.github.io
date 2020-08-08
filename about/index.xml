@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>We are Kodeworx on Kodeworx - Random tech stuff</title>
+    <title>Me &amp; Myself on Kodeworx</title>
     <link>http://kodeworx.net/about/</link>
-    <description>Recent content in We are Kodeworx on Kodeworx - Random tech stuff</description>
+    <description>Recent content in Me &amp; Myself on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 May 2019 22:57:27 -0300</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2020 22:24:00 -0300</lastBuildDate>
     
 	<atom:link href="http://kodeworx.net/about/index.xml" rel="self" type="application/rss+xml" />
     

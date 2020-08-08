@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://kodeworx.net/about/</loc>
+    <lastmod>2020-08-07T22:24:00-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://kodeworx.net/posts/</loc>
     <lastmod>2020-07-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
