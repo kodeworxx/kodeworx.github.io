@@ -6,10 +6,33 @@
     <description>Recent content in Categories on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://kodeworx.net/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Containers</title>
+      <link>http://kodeworx.net/categories/containers/</link>
+      <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://kodeworx.net/categories/containers/</guid>
+      <description></description>
+    </item>
     
-	<atom:link href="http://kodeworx.net/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker</title>
+      <link>http://kodeworx.net/categories/docker/</link>
+      <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://kodeworx.net/categories/docker/</guid>
+      <description></description>
+    </item>
     
+    <item>
+      <title>Rancher</title>
+      <link>http://kodeworx.net/categories/rancher/</link>
+      <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://kodeworx.net/categories/rancher/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Cloud</title>
@@ -26,15 +49,6 @@
       <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>http://kodeworx.net/categories/auth/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Containers</title>
-      <link>http://kodeworx.net/categories/containers/</link>
-      <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://kodeworx.net/categories/containers/</guid>
       <description></description>
     </item>
     

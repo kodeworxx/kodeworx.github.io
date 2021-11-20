@@ -106,69 +106,69 @@ Having it said, let&rsquo;s get hands dirty.</p>
 <p>3 - Your LDAP or AD CA (Certificate Authority) in case you use an encrypted connection, and you should</p>
 <h2 id="how-to-debug">How to debug</h2>
 <p>I&rsquo;ll recommend you to increase the verbosity of master-api containter logs. If you have setup your environment through RPM you change the following line on <code>/etc/origin/master/master.env</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#a6e22e">DEBUG_LOGLEVEL</span><span style="color:#f92672">=</span><span style="color:#e6db74">4</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#a6e22e">DEBUG_LOGLEVEL</span><span style="color:#f92672">=</span><span style="color:#e6db74">4</span></code></pre></div>
 <p>Note that default value is <code>2</code></p>
 <h2 id="ldap-certificate">LDAP Certificate</h2>
 <p>If you have a SSL enabled LDAP or Active directory you must copy your CA file <code>/etc/origin/master/</code> folder. For instance let&rsquo;s call it <code>freeipa_ca.crt</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo cp freeipa_ca.crt /etc/origin/master/</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo cp freeipa_ca.crt /etc/origin/master/</code></pre></div>
 <h2 id="a-working-config-example">A working config example</h2>
 <p>Than you can finally edit your <code>/etc/origin/master/master-config.yaml</code> and add your LDAP settings. You&rsquo;ll need to add your settings after the <code>identityProviders</code> key.
 Let&rsquo;s have a look to a working configuration:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#66d9ef">identityProviders</span>:
-  - <span style="color:#66d9ef">challenge</span>: <span style="color:#66d9ef">true</span>
-    <span style="color:#66d9ef">login</span>: <span style="color:#66d9ef">true</span>
-    <span style="color:#66d9ef">mappingMethod</span>: lookup
-    <span style="color:#66d9ef">name</span>: allow_all
-    <span style="color:#66d9ef">provider</span>:
-      <span style="color:#66d9ef">apiVersion</span>: v1
-      <span style="color:#66d9ef">kind</span>: AllowAllPasswordIdentityProvider
-  - <span style="color:#66d9ef">name</span>: freeipa
-    <span style="color:#66d9ef">challenge</span>: <span style="color:#66d9ef">true</span>
-    <span style="color:#66d9ef">login</span>: <span style="color:#66d9ef">true</span>
-    <span style="color:#66d9ef">mappingMethod</span>: claim
-    <span style="color:#66d9ef">provider</span>:
-      <span style="color:#66d9ef">apiVersion</span>: v1
-      <span style="color:#66d9ef">kind</span>: LDAPPasswordIdentityProvider
-      <span style="color:#66d9ef">attributes</span>:
-        <span style="color:#66d9ef">id</span>:
-        - dn
-        <span style="color:#66d9ef">email</span>:
-        - mail
-        <span style="color:#66d9ef">name</span>:
-        - cn
-        <span style="color:#66d9ef">preferredUsername</span>:
-        - uid
-      <span style="color:#66d9ef">bindDN</span>: <span style="color:#e6db74">&#34;uid=openshift_user,cn=users,cn=accounts,dc=example,dc=com&#34;</span>
-      <span style="color:#66d9ef">bindPassword</span>: <span style="color:#e6db74">&#34;openshift_password&#34;</span>
-      <span style="color:#66d9ef">insecure</span>: <span style="color:#66d9ef">false</span>
-      <span style="color:#66d9ef">ca</span>: freeipa_ca.crt
-      <span style="color:#66d9ef">url</span>: <span style="color:#e6db74">&#34;ldap://server.example.com/cn=users,cn=accounts,dc=example,dc=com?uid&#34;</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#f92672">identityProviders</span>:
+  - <span style="color:#f92672">challenge</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">login</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">mappingMethod</span>: <span style="color:#ae81ff">lookup</span>
+    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">allow_all</span>
+    <span style="color:#f92672">provider</span>:
+      <span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+      <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">AllowAllPasswordIdentityProvider</span>
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">freeipa</span>
+    <span style="color:#f92672">challenge</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">login</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">mappingMethod</span>: <span style="color:#ae81ff">claim</span>
+    <span style="color:#f92672">provider</span>:
+      <span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+      <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">LDAPPasswordIdentityProvider</span>
+      <span style="color:#f92672">attributes</span>:
+        <span style="color:#f92672">id</span>:
+        - <span style="color:#ae81ff">dn</span>
+        <span style="color:#f92672">email</span>:
+        - <span style="color:#ae81ff">mail</span>
+        <span style="color:#f92672">name</span>:
+        - <span style="color:#ae81ff">cn</span>
+        <span style="color:#f92672">preferredUsername</span>:
+        - <span style="color:#ae81ff">uid</span>
+      <span style="color:#f92672">bindDN</span>: <span style="color:#e6db74">&#34;uid=openshift_user,cn=users,cn=accounts,dc=example,dc=com&#34;</span>
+      <span style="color:#f92672">bindPassword</span>: <span style="color:#e6db74">&#34;openshift_password&#34;</span>
+      <span style="color:#f92672">insecure</span>: <span style="color:#66d9ef">false</span>
+      <span style="color:#f92672">ca</span>: <span style="color:#ae81ff">freeipa_ca.crt</span>
+      <span style="color:#f92672">url</span>: <span style="color:#e6db74">&#34;ldap://server.example.com/cn=users,cn=accounts,dc=example,dc=com?uid&#34;</span></code></pre></div>
 <h3 id="default-users">Default users</h3>
 <p>The first thing you&rsquo;ll notice is that if you haven&rsquo;t setup anything on your Openshift deployment, you&rsquo;ll have an default <code>AllowAllPasswordIdentityProvider</code> identity provider, which permits you to login as any user with any password. This provider is called allow_all and you can check out that the standard setup provides some users.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc get users
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc get users
 admin             1234abcd-87f3-21e9-d610-0050269ae124                     allow_all:admin
 developer         4567efab-8669-13e9-d610-00595795ec24                     allow_all:developer
 sysadmin          8901cdef-11e9-8d4f-9fe7-00405695f2d6                     allow_all:sysadmin</code></pre></div>
 <p>You can also find some information with the <code>oc get identity</code> command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc get identity
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc get identity
 NAME                IDP NAME        IDP USER NAME       USER NAME       USER UID
 allow_all:admin     allow_all       admin               admin           1234abcd-87f3-21e9-d610-0050269ae124</code></pre></div>
 <p>The <code>mappingMethod</code> defined to <code>claim</code> means that any new login will be automatically provisioned, which doesn<code>t means it</code>ll gain any default right. On Openshift every new user has no access but may create new Projects. You can change this behavior latter.</p>
 <h2 id="testing-ldap-search">Testing LDAP Search</h2>
 <p>Before we start to write our LDAP provider config, it&rsquo;s best to check the credentials and <code>dn</code> with the help of <code>ldapsearch</code> utility.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ ldapsearch -h server.example.com -b dc<span style="color:#f92672">=</span>example,dc<span style="color:#f92672">=</span>com -v -D <span style="color:#e6db74">&#34;uid=openshift_user,cn=users,cn=accounts,dc=example,dc=com&#34;</span> -W <span style="color:#e6db74">&#34;uid=myusername&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ ldapsearch -h server.example.com -b dc<span style="color:#f92672">=</span>example,dc<span style="color:#f92672">=</span>com -v -D <span style="color:#e6db74">&#34;uid=openshift_user,cn=users,cn=accounts,dc=example,dc=com&#34;</span> -W <span style="color:#e6db74">&#34;uid=myusername&#34;</span>
 
 ldap_initialize<span style="color:#f92672">(</span> ldap://server.example.com <span style="color:#f92672">)</span>
 Enter LDAP Password: 
 filter: uid<span style="color:#f92672">=</span>myusername
 requesting: All userApplication attributes
 <span style="color:#75715e"># extended LDIF</span>
-#
+<span style="color:#75715e">#</span>
 <span style="color:#75715e"># LDAPv3</span>
 <span style="color:#75715e"># base &lt;dc=example,dc=com&gt; with scope subtree</span>
 <span style="color:#75715e"># filter: uid=myusername</span>
 <span style="color:#75715e"># requesting: ALL</span>
-#
+<span style="color:#75715e">#</span>
 
 <span style="color:#75715e"># myusername, users, compat, ipa.imusicacorp.com</span>
 dn: uid<span style="color:#f92672">=</span>myusername,cn<span style="color:#f92672">=</span>users,cn<span style="color:#f92672">=</span>compat,dc<span style="color:#f92672">=</span>example,dc<span style="color:#f92672">=</span>com
@@ -204,20 +204,20 @@ objectClass: posixAccount
 <li><code>url</code> - An RFC 2255 connection string used to connect to your LDAP server and search parameters, for instance, &ldquo;ldap://server.example.com/cn=Users,dc=example,dc=com?samAccountName&rdquo;</li>
 </ul>
 <p>Restart container</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo /usr/local/bin/master-restart api</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo /usr/local/bin/master-restart api</code></pre></div>
 <p>Listen to logs:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc logs -n kube-system master-api-your-master.example.com --tail <span style="color:#ae81ff">10</span> -f</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc logs -n kube-system master-api-your-master.example.com --tail <span style="color:#ae81ff">10</span> -f</code></pre></div>
 <p>If your <code>master-api</code> container doesn`t start you may try to get the last logs through master-logs command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo /usr/local/bin/master-logs api api</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo /usr/local/bin/master-logs api api</code></pre></div>
 <p>If everything is ok but <code>master-api</code> container still refuse to get running you may try do reboot your node, or delete the container if you have a HA Cluster. I&rsquo;m not sure if it&rsquo;s safe to delete this container on a single node setup.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc delete pod master-api-your-master.example.com -n kube-system</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc delete pod master-api-your-master.example.com -n kube-system</code></pre></div>
 <p>As long as your <code>master-api</code> container is running</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc get pods --all-namespaces | grep master-api<span style="color:#e6db74">`</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc get pods --all-namespaces | grep master-api<span style="color:#e6db74">`</span>
 ...
 kube-system                         master-api-your-master.example.com            <span style="color:#ae81ff">2</span>         2h
 ...</code></pre></div>
 <p>Try to login to OpenShift and check it out if it works.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc login https://console-okd.example.com -u myusername
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc login https://console-okd.example.com -u myusername
 Authentication required <span style="color:#66d9ef">for</span> https://console-okd.example.com:443 <span style="color:#f92672">(</span>openshift<span style="color:#f92672">)</span>
 Username: myusername
 Password: 
@@ -227,12 +227,12 @@ You don<span style="color:#960050;background-color:#1e0010">&#39;</span>t have a
 
     oc new-project &lt;projectname&gt;</code></pre></div>
 <p>If you have a HA Cluster you may try to login on a specific master before you replicate the setup over the other hosts.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">oc login https://192.168.0.101 -u myusername --insecure-skip-tls-verify<span style="color:#f92672">=</span>true</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">oc login https://192.168.0.101 -u myusername --insecure-skip-tls-verify<span style="color:#f92672">=</span>true</code></pre></div>
 <p>If everything is fine you should see some lines like these on your <code>master-api</code> logs:</p>
 <ul>
 <li>For an OpenLDAP server:</li>
 </ul>
-<pre><code class="language-log" data-lang="log">I0619 23:59:01.043254       1 basicauth.go:51] Login with provider &#34;allow_all&#34; failed for login &#34;myusername&#34;
+<pre tabindex="0"><code class="language-log" data-lang="log">I0619 23:59:01.043254       1 basicauth.go:51] Login with provider &#34;allow_all&#34; failed for login &#34;myusername&#34;
 I0619 23:59:01.069449       1 ldap.go:122] searching for (&amp;(objectClass=*)(uid=myusername))
 I0619 23:59:01.081760       1 ldap.go:139] found dn=&#34;uid=myusername,cn=users,cn=accounts,dc=example,dc=com&#34; for (&amp;(objectClass=*)(uid=myusername))
 I0619 23:59:01.096297       1 wrap.go:42] GET /apis/user.openshift.io/v1/identities/freeipa:uid=myusername,cn=users,cn=accounts,dc=exmaple,dc=com: (2.029694ms) 404 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 127.0.0.1:34354]
@@ -245,7 +245,7 @@ I0619 23:59:01.156035       1 wrap.go:42] GET /apis/user.openshift.io/v1/users/m
 <ul>
 <li>For an Active Directory server:</li>
 </ul>
-<pre><code class="language-log" data-lang="log">I0620 00:18:49.513445       1 ldap.go:122] searching for (&amp;(objectClass=*)(samaccountname=myusername))
+<pre tabindex="0"><code class="language-log" data-lang="log">I0620 00:18:49.513445       1 ldap.go:122] searching for (&amp;(objectClass=*)(samaccountname=myusername))
 I0620 00:18:49.514174       1 ldap.go:139] found dn=&#34;CN=My Username,OU=Users,DC=example,DC=com&#34; for (&amp;(objectClass=*)(samaccountname=myusername))
 I0620 00:18:49.520484       1 wrap.go:42] GET /apis/user.openshift.io/v1/users/myusername: (1.670994ms) 404 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 127.0.0.1:43366]
 I0620 00:18:49.530471       1 ldap.go:67] identitymapper: got userIdentityMapping: &amp;user.DefaultInfo{Name:&#34;myusername&#34;, UID:&#34;af56f4cf-32ba-1fe9-1a3e-0c5d5e95e124&#34;, Groups:[]string(nil), Extra:map[string][]string(nil)}
@@ -255,14 +255,14 @@ I0620 00:18:49.532735       1 wrap.go:42] GET /apis/oauth.openshift.io/v1/oauthc
 I0620 00:18:49.590815       1 wrap.go:42] GET /apis/user.openshift.io/v1/users/myusername: (1.714394ms) 200 [[openshift/v1.11.0+d4cacc0 (linux/amd64) kubernetes/d4cacc0] 192.168.0.101:41592]</code></pre>
 <p>Sometimes during our tests, user get created over the <code>allow_all</code> provider or even with wrong identity settings. This specially happens when working on a HA Cluster and when you haven&rsquo;t removed or disabled <code>allow_all</code> provider.
 In this case it&rsquo;s good to use <code>oc get users</code> and/or <code>oc get identity</code> to check if the user has been created and if necessary, to delete it.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc delete user myusername
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ oc delete user myusername
 user.user.openshift.io <span style="color:#e6db74">&#34;myusername&#34;</span> deleted
 
 $ oc delete identity freeipa:uid<span style="color:#f92672">=</span>myusername,cn<span style="color:#f92672">=</span>users,cn<span style="color:#f92672">=</span>accounts,dc<span style="color:#f92672">=</span>example,dc<span style="color:#f92672">=</span>com
 identity.user.openshift.io <span style="color:#e6db74">&#34;freeipa:uid=myusername,cn=users,cn=accounts,dc=example,dc=com&#34;</span> deleted</code></pre></div>
 <p>And, that`s it. If everything is fine you can now replicate the setup over the other hosts of your HA Cluster.</p>
 <p>Note that if you have a HA Cluster you have to reproduce the steps above over each Master host, but before you do it, try to login over the host if just changed the config.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo cat /etc/origin/master/master-config.yaml | ssh your-master02.example.com <span style="color:#e6db74">&#34;sudo tee /etc/origin/master/master-config.yaml&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo cat /etc/origin/master/master-config.yaml | ssh your-master02.example.com <span style="color:#e6db74">&#34;sudo tee /etc/origin/master/master-config.yaml&#34;</span>
 $ ssh your-master02.example.com <span style="color:#e6db74">&#34;sudo /usr/local/bin/master-restart api&#34;</span></code></pre></div>
 <p>Wait until the master api is up and running and proceed to your other servers.</p>
         </div>
@@ -361,22 +361,29 @@ $ ssh your-master02.example.com <span style="color:#e6db74">&#34;sudo /usr/local
             </li><li class="cat-item cat-item-2">
                 <a href="/categories/cloud">Cloud (1)</a>
             </li><li class="cat-item cat-item-2">
-                <a href="/categories/containers">Containers (1)</a>
+                <a href="/categories/containers">Containers (2)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/docker">Docker (1)</a>
             </li><li class="cat-item cat-item-2">
                 <a href="/categories/orchestration">Orchestration (1)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/rancher">Rancher (1)</a>
             </li>
         </ul>
     </aside>
 
     <aside class="widget widget_tag_cloud">
         <h2>Tags</h2>
-        <div class="tagcloud"><a class="tag-cloud-link" href="/tags/active-directory" title="active-directory" style="font-size: 12pt;">active directory</a>&emsp;<a class="tag-cloud-link" href="/tags/aws" title="aws" style="font-size: 12pt;">aws</a>&emsp;<a class="tag-cloud-link" href="/tags/kubernetes" title="kubernetes" style="font-size: 12pt;">kubernetes</a>&emsp;<a class="tag-cloud-link" href="/tags/ldap" title="ldap" style="font-size: 12pt;">ldap</a>&emsp;<a class="tag-cloud-link" href="/tags/openshift" title="openshift" style="font-size: 12pt;">openshift</a>&emsp;<a class="tag-cloud-link" href="/tags/organization" title="organization" style="font-size: 12pt;">organization</a>&emsp;<a class="tag-cloud-link" href="/tags/tags" title="tags" style="font-size: 12pt;">tags</a>&emsp;
+        <div class="tagcloud"><a class="tag-cloud-link" href="/tags/active-directory" title="active-directory" style="font-size: 12pt;">active directory</a>&emsp;<a class="tag-cloud-link" href="/tags/aws" title="aws" style="font-size: 12pt;">aws</a>&emsp;<a class="tag-cloud-link" href="/tags/docker" title="docker" style="font-size: 12pt;">docker</a>&emsp;<a class="tag-cloud-link" href="/tags/docker-desktop" title="docker-desktop" style="font-size: 12pt;">docker desktop</a>&emsp;<a class="tag-cloud-link" href="/tags/kubernetes" title="kubernetes" style="font-size: 12pt;">kubernetes</a>&emsp;<a class="tag-cloud-link" href="/tags/ldap" title="ldap" style="font-size: 12pt;">ldap</a>&emsp;<a class="tag-cloud-link" href="/tags/openshift" title="openshift" style="font-size: 12pt;">openshift</a>&emsp;<a class="tag-cloud-link" href="/tags/organization" title="organization" style="font-size: 12pt;">organization</a>&emsp;<a class="tag-cloud-link" href="/tags/rancher" title="rancher" style="font-size: 12pt;">rancher</a>&emsp;<a class="tag-cloud-link" href="/tags/tags" title="tags" style="font-size: 12pt;">tags</a>&emsp;
         </div>
     </aside>
 
     <aside class="widget widget_recent_entries">
         <h2>Recent Posts</h2>
         <ul>
+            <li>
+                <a href="/posts/rancher_desktop_a_docker_desktop_replacement/">Rancher Desktop - A Docker Desktop Replacement</a>
+            </li>
             <li>
                 <a href="/posts/managing-aws-the-right-way-part-1/">Managing AWS the right way - Part 1</a>
             </li>
@@ -405,5 +412,6 @@ $ ssh your-master02.example.com <span style="color:#e6db74">&#34;sudo /usr/local
 </footer>
 </div>
 
+        
     </body>
 </html>

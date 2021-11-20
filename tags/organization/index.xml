@@ -6,11 +6,7 @@
     <description>Recent content in organization on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Jul 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://kodeworx.net/tags/organization/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 25 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://kodeworx.net/tags/organization/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Managing AWS the right way - Part 1</title>
       <link>http://kodeworx.net/posts/managing-aws-the-right-way-part-1/</link>

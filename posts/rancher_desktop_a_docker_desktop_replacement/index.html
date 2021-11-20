@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+    <title>Rancher Desktop - A Docker Desktop Replacement - Kodeworx</title>
+
+    <style type="text/css">
+        img.wp-smiley,
+        img.emoji {
+            display: inline !important;
+            border: none !important;
+            box-shadow: none !important;
+            height: 1em !important;
+            width: 1em !important;
+            margin: 0 .07em !important;
+            vertical-align: -0.1em !important;
+            background: none !important;
+            padding: 0 !important;
+        }
+    </style>
+    <link rel='stylesheet' href='http://kodeworx.net/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='http://kodeworx.net/css/custom.css' type='text/css' media='all' />
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-174940069-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    <link rel="stylesheet" type="text/css" href="http://kodeworx.net/css/asciinema-player.css" />
+    
+</head>
+    <body class="two-column">
+        <a href="#content">Skip to content</a>
+<div class="wrapper">
+    <header role="banner" class="banner widgets columns-1">
+        <a href="/" rel="home">
+            <h1 class="site">Kodeworx</h1>
+            <p></p>
+        </a>
+        <nav role="navigation" aria-label="Primary Navigation">
+
+            <ul class="menu">
+                <li class="menu-item "><a class="menu__link" href="/about/">ABOUT</a></li>
+            </ul>
+            <select onChange="location.href=value;">
+                <option value="/about/" class="menu-item menu-item-type-custom menu-item-object-custom" >ABOUT</option>
+            </select>
+        </nav>
+    </header>
+
+    <br>
+    <div style="width: 100%; max-height: 100px; text-align: center;">
+       
+</div>
+
+    <div class="breadcrumbs">
+        
+    </div>
+        <div id="content" class="content">
+
+<main role="main">
+    <article role="article" class="post type-post format-standard hentry">
+        <header class="post-header">
+            <h1>Rancher Desktop - A Docker Desktop Replacement</h1>
+            <div class="post-details">
+                <a rel="bookmark">
+                    <time datetime="2021-11-20T1120:120:06">2021-11-20</time>
+                </a>
+				
+<span style="float: right;">
+    <div id="fb-root" style="height: 100%;"></div>
+    
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+    
+    <div class="fb-share-button" data-href="http://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/" data-layout="button_count" data-size="small">
+        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkodeworx.net%2fposts%2francher_desktop_a_docker_desktop_replacement%2f" class="fb-xfbml-parse-ignore">Share</a>
+    </div>
+    &nbsp;
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Rancher Desktop - A Docker Desktop Replacement" data-url="http://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/" data-show-count="false">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    &nbsp;
+    
+</span>
+
+            </div>
+        </header>
+
+        <div class="post-content">
+            <p>So almost everybody is aware about the fresh new Docker Desktop license change.
+For those who are out of this new, since the last Aug 31, Docker changed it&rsquo;s Docker Desktop license model and that&rsquo;s the main changes we need to be concerned:</p>
+<ul>
+<li>Docker Desktop remains free for small businesses (fewer than 250 employees AND less than $10 million in annual revenue), personal use, education, and non-commercial open source projects.</li>
+<li>It requires a paid subscription (Pro, Team or Business), starting at $5 per user per month, for professional use in larger businesses. You may directly purchase here, or share this post and our solution brief with your manager.</li>
+<li>While the effective date of these terms is August 31, 2021, there is a grace period until January 31, 2022 for those that require a paid subscription to use Docker Desktop.
+All the details about the new license model can be checked out on it&rsquo;s <a href="https://www.docker.com/legal/docker-subscription-service-agreement" title="Docker Subscription Service Agreement">Docker Subscription Service Agreement</a></li>
+</ul>
+<p>So, right now, many companies are looking into the available subscription options as they users (most Developrs and Infrastructure teams) already have a working envrionment where Docker Desktop is a necessary tool.
+Even if the price is not a entry barrier, some companies may have some difficult in order to choose the right subscription package, and others (mostly outside of the U.S.) may not be able to subscribe into the new model.</p>
+<p>Altough I think Docker Desktop features still worths a USD 7 a month (billed annualy), it&rsquo;s always great to known we are not forced to stay binded to a commercial sollution from  Docker in order to be able to Build and Try containers on our local environment, and that&rsquo;s where <a href="https://rancherdesktop.io/">Rancher Desktop</a> cames to the rescue.</p>
+<h2 id="rancher-desktop">Rancher Desktop</h2>
+<p>We can define Rancher Desktop as a Open Source desktop application avaible to Windows and Mac, where one may Build and Run containers, and also have a Kubernetes environment, just as it can be done on Docker Desktop.
+Rancher Desktop run&rsquo;s over <a href="https://containerd.io/">containerd</a>, an industry standard for running container, and provides a <a href="https://k3s.io/">K3S</a> install in order to offers a Kubernets environment.</p>
+<h3 id="how-it-works">How it works?</h3>
+<p><img src="https://rancherdesktop.io/images/Arch_v2.svg" alt="Rancher Desktop" title="https://rancherdesktop.io/images/Arch_v2.svg"></p>
+<p>Rancher Desktop uses <a href="https://docs.microsoft.com/en-us/windows/wsl/">WSL v2</a> on Windows and QEMU on Mac and Linux to provide a Container Runtime (Containerd) and a Kubernetes Environment (K3S). It provides the necessary tools to manage Kubernetes (kubectl) and to install applications over it (helm), as well as to build and manage Containers (Containerd).  It&rsquo;s includes nerdctl, a drop-in replacement for the docker command.</p>
+<h4 id="containerd">Containerd</h4>
+<p>Containerd is a official CNCF project aimed to manage the entire container lifecycle, from image pulling, going through network and storage layers and all the needed resources in order to correctly run a containter into an host, and eventually pushing it to a remote registry.
+It&rsquo;s available to Linux, Windows and Mac. More information can be found on the project&rsquo;s page <a href="https://containerd.io/">https://containerd.io/</a></p>
+<h4 id="kubectl">Kubectl</h4>
+<p>Kubectl is the official tool to manage Kubernetes clusters from it&rsquo;s API and is available to Linux, Windows and Mac. More information can be found on Kubernetes page <a href="https://kubernetes.io/docs/tasks/tools/">https://kubernetes.io/docs/tasks/tools/</a></p>
+<h4 id="helm">Helm</h4>
+<p>Helm, also known as Helm Charts is a kind of Package Manager for Kubernetes. Helm provides a easy and structured way to share a Kubernetes Applications and fully manage all it&rsquo;s lifecycle, from the dependencies installation, setup and upgrade, even on complex applications. Helm is also held by CNCF and more information can be found on it&rsquo;s project&rsquo;s official page <a href="https://helm.sh/">https://helm.sh/</a></p>
+<h4 id="k3s">K3S</h4>
+<p>K3S is a lightweit Kubernetes distribution aimed to IoT and Edge Computing, packaged on a single binary that can run on small systems like Raspberry Pi and lot&rsquo;s of other systems based on X86_6 adn ARM architecture.
+Creating a Kubernetes cluster with K3S is as easy as running <code>k3s server</code></p>
+<h4 id="nerdctl">Nerdctl</h4>
+<p>Nerdctl is a Docker-compatible CLI for containerd. It has the same syntax for the most used docker commands like <code>nerdctl run</code> and <code>nerdctl build</code> but also provides native support to docker-compose yaml files with the <code>nerdctl compose</code> command.
+I&rsquo;ts available to Linux, Windows and Mac, and more information can be found at it&rsquo;s GitHub project page <a href="https://github.com/containerd/nerdctl">https://github.com/containerd/nerdctl</a></p>
+<h3 id="install">Install</h3>
+<p>Rancher Desktop can be downloaded directly from it&rsquo;s <a href="https://github.com/rancher-sandbox/rancher-desktop/releases" title="Rancher Desktop Releases">releases</a> page on Github.
+From the moment of writhing this post the latest available version is <a href="https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v0.6.0">v0.6.0</a> which is available to Windows, Linux and Mac. White it&rsquo;s considered as a Pre-release, it works pretty well as a Docker Desktop replacement.</p>
+<p>Installing it on all the supported OS&rsquo;s is preety straightforward but on this guild we will cover only the Windows setup as it&rsquo;s my main OS.</p>
+<ol>
+<li>
+<p>Download it from it&rsquo;s <a href="https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v0.6.0">v0.6.0 release</a>. You may look on the <a href="https://github.com/rancher-sandbox/rancher-desktop/releases">releases page</a> for an updated release.</p>
+<p><img src="images/rancher-desktop-release-download-page.png" alt="Rancher Desktop - Release Download" title="Rancher Desktop - Release Download"></p>
+</li>
+<li>
+<p>If you still have Docker Desktop running on your computer, it&rsquo;s time to uninstall it or at least to terminate it and disable it on System Startup.</p>
+</li>
+<li>
+<p>Openup the the download file and follow the Wizard.</p>
+<p><img src="images/rancher-desktop-install-step-1.png" alt="License Agreement"></p>
+<p><img src="images/rancher-desktop-install-step-2.png" alt="Setup Complete"></p>
+</li>
+<li>
+<p>After the install, it will automatically open, and ask to select a Kubernetes version</p>
+<p><img src="images/rancher-desktop-install-step-3.png" alt="Select Kubernetes Version"></p>
+</li>
+<li>
+<p>Then, it will start to download and install Kubernetes</p>
+<p><img src="images/rancher-desktop-install-step-4.png" alt="Kubernetes install"></p>
+</li>
+</ol>
+<p>At the end, we&rsquo;ll have a fully working Kubernetes K3S cluster setup with minimal effort.
+On the next steps we&rsquo;ll check out how to build and run some containers. It&rsquo;s worth to mention that while the commands are run on a PowerShell session, it&rsquo;s only for a proof of concept and they can be run on a WSL linux session excactly on the same way, so using PowerShell or a Linux Shell like Bash or ZSH is just a matter of taste.</p>
+<h2 id="docker-essentials">Docker essentials</h2>
+<p>As our main purpose is to replace Docker Desktop, let&rsquo;s check out if the essentials Docker features are working fine on Rancher Desktop.</p>
+<h3 id="building-and-running-a-container">Building and running a container</h3>
+<p>A great way to test <code>nerdctl</code> tool is to build and run a small project called <a href="https://github.com/oskapt/rancher-demo.git">rancher-demo</a>.<br>
+This project Dockerfile will build a go application and altough it&rsquo;s aimed to show the Rancher capabilities of managing a Kubernetes cluster, it&rsquo;s enough to test a basic container lifecycle.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/oskapt/rancher-demo.git
+cd rancher-demo
+nerdctl build -t mybuild .
+nerdctl run --rm -p 8081:8080 mybuild
+</code></pre></div><p>Let&rsquo;s see these commands in action:
+<p>
+    <asciinema-player
+        src="/casts/rancher_desktop_a_docker_desktop_replacement/nerdctl_build_run.cast"
+        cols="640"
+        rows="15"
+        
+        preload="1"
+        
+        start-at="0"
+        speed="1"
+        idle-time-limit="1"
+        
+        
+        
+        
+        
+        
+        
+    ></asciinema-player>
+</p></p>
+<p>We can go and access http://localhost:8081 which will bring us something like the following:
+<img src="images/nerdctl-rancher-demo.png" alt="Rancher Demo Container"></p>
+<p>If we need to push our image to a remote registry we can do it as in with in <code>docker</code> command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nerdctl login -u myusername
+nerdctl push 
+nerdctl pull
+</code></pre></div><h3 id="docker-compose">Docker Compose</h3>
+<p>For those who just need to try a simple container based stack, or just don&rsquo;t need or don&rsquo;t want to use a fully Container Orchestrator such a Kubernetes, there&rsquo;s always the option to use Docker Compose to manage the stack in a simple way.</p>
+<p>For our demo purpose we&rsquo;ll use the Wordpress sample from Docker website, taken on (<a href="https://docs.docker.com/samples/wordpress/">https://docs.docker.com/samples/wordpress/</a>)
+I setup a GitHub repository with the <code>docker-compose.yml</code> file, so to run this setup will be as easy as running this following commands:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/kodeworxx/wordpress-demo.git
+cd wordpress-demo
+nerdctl compose up
+</code></pre></div><p>The output will be similar for the following:
+<p>
+    <asciinema-player
+        src="/casts/rancher_desktop_a_docker_desktop_replacement/wp-demo-nerdctl_compose.cast"
+        cols="640"
+        rows="15"
+        
+        preload="1"
+        
+        start-at="0"
+        speed="1"
+        idle-time-limit="1"
+        
+        
+        
+        
+        
+        
+        
+    ></asciinema-player>
+</p></p>
+<p>The initialization is complete as long as we have the following line in the standard out:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">db_1        |2021-11-13T02:09:57.264035Z <span style="color:#ae81ff">0</span> <span style="color:#f92672">[</span>System<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MY-010931<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>Server<span style="color:#f92672">]</span> /usr/sbin/mysqld: ready <span style="color:#66d9ef">for</span> connections. Version: <span style="color:#e6db74">&#39;8.0.27&#39;</span>  socket: <span style="color:#e6db74">&#39;/var/run/mysqld/mysqld.sock&#39;</span>  port: <span style="color:#ae81ff">3306</span>  MySQL Community Server - GPL.
+</code></pre></div><p>Now we can find a Wordpress installation webpage at (http://localhost:8080) like this one:</p>
+<p><img src="images/nerdctl-compose-wordpress-1.png" alt="Wordpress Install"></p>
+<p>And, if we go through the install process, we will have a working website in a few minutes:</p>
+<p><img src="images/nerdctl-compose-wordpress-2.png" alt="Wordpress Website"></p>
+<p>We can stop the running stack pressing <code>Ctrl + C</code> and then we can delete the stack with</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nerdctl compose down
+</code></pre></div><h2 id="kubernetes">Kubernetes</h2>
+<p>We have already looked at Kubernetes before and we know that Rancher Desktop brings K3S.</p>
+<p>To make sure our Kubernetes cluster is looking fine, we can use <code>kubectl</code> to check access to our cluster.
+In order to do it, a valid <code>kubeconfig</code> file and also a <code>kubectl</code> command are needed, but thanks to Rancher Desktop, those are already setup.<br>
+Let&rsquo;s take a look on the output of some common usage for <code>kubectl</code>.</p>
+<p>
+    <asciinema-player
+        src="/casts/rancher_desktop_a_docker_desktop_replacement/kubectl.cast"
+        cols="640"
+        rows="15"
+        
+        preload="1"
+        
+        start-at="0"
+        speed="1"
+        idle-time-limit="1"
+        
+        
+        
+        
+        
+        
+        
+    ></asciinema-player>
+</p>
+<h3 id="deploying-a-pod">Deploying a POD</h3>
+<p>Deploying a simple POD for tests purpose is a very simple task.
+With our Wordpress demo we can achive it with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f wordpress-stack-emptydir.yaml
+</code></pre></div><p>And get some status with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get pods -w
+kubectl logs -f pod/wordpress-stack --all-containers
+kubectl get all
+kubectl get ingress
+</code></pre></div><p>Finally, we can remove our POD with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl delete -f wordpress-stack-emptydir.yaml
+</code></pre></div><p>Let&rsquo;s take a look on those commands output:</p>
+<p>
+    <asciinema-player
+        src="/casts/rancher_desktop_a_docker_desktop_replacement/wp-demo-kubernetes.cast"
+        cols="640"
+        rows="15"
+        
+        preload="1"
+        
+        start-at="0"
+        speed="1"
+        idle-time-limit="1"
+        
+        
+        
+        
+        
+        
+        
+    ></asciinema-player>
+</p>
+<p>Now we can access our Wordpress through the NodePort 30080 on (http://localhost:30080) or through the Ingress on (<a href="http://wordpress.localhost">http://wordpress.localhost</a>)</p>
+<p>It&rsquo;s important to notice that the stack configured through the <code>wordpress-stack-emptydir.yaml</code> is for tests purpose only and no data will be persisted. For a Production environment we should separate the Database and the Application in different Pods, and use other Kubernetes resources like Deployments, StatefulSets, PersistentVolumes, etc.</p>
+<p>For a local Development environment we can make the data persistent using a <code>hostPath</code> like the one in the <code>wordpress-stack-peristent.yaml</code>.
+Now we&rsquo;ll have our data persisted even after delete the stack.</p>
+<p>
+    <asciinema-player
+        src="/casts/rancher_desktop_a_docker_desktop_replacement/wp-demo-kubernetes-persistent.cast"
+        cols="640"
+        rows="15"
+        
+        preload="1"
+        
+        start-at="0"
+        speed="1"
+        idle-time-limit="1"
+        
+        
+        
+        
+        
+        
+        
+    ></asciinema-player>
+</p>
+<p>It could be useful if we point the <code>hostPath</code> to a local directory through the mountpoints off our WSL</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#f92672">volumes</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">wp-volume-db</span>
+    <span style="color:#f92672">hostPath</span>:
+      <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/mnt/c/Users/myLogin/Documents/myProject</span>
+      <span style="color:#f92672">type</span>: <span style="color:#ae81ff">DirectoryOrCreate</span>
+</code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>Through this post we have found that Rancher Desktop is a great solution to replace Docker Desktop.</p>
+<p>We have saw that Rancher Desktop stack enable us to do almost everything we can do with Docker Desktop, like pull, build and run standalone Containers as well as to deploy Docker Compose based Stacks.  Also, Rancher Desktop cames with a built-in K3S setup which allow us to deploy Kubernetes based Stacks, and algouth we have not covered Helm Charts on this post, it&rsquo;s also posible to deploy Helm packaged Applications, and Rancher Desktop already provides the helm binary.</p>
+<p>Hope this post has bringed some light on how to setup a simple but funcitional local Development environment without having to worry about commercial licenses.</p>
+<p>See you in a next post!</p>
+        </div>
+
+        <footer class="post-footer">
+            
+            <span class="post-categories">
+                
+                <a href="http://kodeworx.net/categories/containers" rel="tag">Containers</a>
+                
+                <a href="http://kodeworx.net/categories/docker" rel="tag">Docker</a>
+                
+                <a href="http://kodeworx.net/categories/rancher" rel="tag">Rancher</a>
+                
+            </span>
+            
+
+            
+            <span class="post-tags">
+                
+                <a href="http://kodeworx.net/tags/docker" rel="tag">docker</a>&emsp;
+                
+                <a href="http://kodeworx.net/tags/rancher" rel="tag">rancher</a>&emsp;
+                
+                <a href="http://kodeworx.net/tags/docker-desktop" rel="tag">docker desktop</a>&emsp;
+                
+                <a href="http://kodeworx.net/tags/kubernetes" rel="tag">kubernetes</a>&emsp;
+                
+            </span>
+            
+        </footer>
+        
+<table cellspacing="15" style="width:100%; border: none;">
+    <tr>
+        <td style="text-align: center; border: none; padding: 0px;">
+        </td>
+        <td style="text-align: center; border: none; padding: 0px;">
+        </td>
+    </tr>
+</table>
+
+        
+    </article>
+
+    
+    <nav class="navigation post-navigation" role="navigation">
+        <div class="nav-links">
+            <div class="nav-previous">
+                
+                <a class="previous" href="http://kodeworx.net/posts/managing-aws-the-right-way-part-1/"> Managing AWS the right way - Part 1</a>
+                
+            </div>
+            <div class="nav-next">
+                
+            </div>
+        </div>
+    </nav>
+    <section>
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "kodeworx-net" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+    
+
+</main>
+
+
+        <div class="sidebar1 widgets columns-1">
+
+    <aside>
+    
+</aside>
+    <aside class="widget widget_categories">
+        <h2>Categories</h2>
+        <ul class="widget__list"><li class="cat-item cat-item-2">
+                <a href="/categories/auth">Auth (1)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/cloud">Cloud (1)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/containers">Containers (2)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/docker">Docker (1)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/orchestration">Orchestration (1)</a>
+            </li><li class="cat-item cat-item-2">
+                <a href="/categories/rancher">Rancher (1)</a>
+            </li>
+        </ul>
+    </aside>
+
+    <aside class="widget widget_tag_cloud">
+        <h2>Tags</h2>
+        <div class="tagcloud"><a class="tag-cloud-link" href="/tags/active-directory" title="active-directory" style="font-size: 12pt;">active directory</a>&emsp;<a class="tag-cloud-link" href="/tags/aws" title="aws" style="font-size: 12pt;">aws</a>&emsp;<a class="tag-cloud-link" href="/tags/docker" title="docker" style="font-size: 12pt;">docker</a>&emsp;<a class="tag-cloud-link" href="/tags/docker-desktop" title="docker-desktop" style="font-size: 12pt;">docker desktop</a>&emsp;<a class="tag-cloud-link" href="/tags/kubernetes" title="kubernetes" style="font-size: 12pt;">kubernetes</a>&emsp;<a class="tag-cloud-link" href="/tags/ldap" title="ldap" style="font-size: 12pt;">ldap</a>&emsp;<a class="tag-cloud-link" href="/tags/openshift" title="openshift" style="font-size: 12pt;">openshift</a>&emsp;<a class="tag-cloud-link" href="/tags/organization" title="organization" style="font-size: 12pt;">organization</a>&emsp;<a class="tag-cloud-link" href="/tags/rancher" title="rancher" style="font-size: 12pt;">rancher</a>&emsp;<a class="tag-cloud-link" href="/tags/tags" title="tags" style="font-size: 12pt;">tags</a>&emsp;
+        </div>
+    </aside>
+
+    <aside class="widget widget_recent_entries">
+        <h2>Recent Posts</h2>
+        <ul>
+            <li>
+                <a href="/posts/rancher_desktop_a_docker_desktop_replacement/">Rancher Desktop - A Docker Desktop Replacement</a>
+            </li>
+            <li>
+                <a href="/posts/managing-aws-the-right-way-part-1/">Managing AWS the right way - Part 1</a>
+            </li>
+            <li>
+                <a href="/posts/openshift_ldap_auth/">Openshift - LDAP Auth</a>
+            </li>
+        </ul>
+    </aside>
+
+    <aside class="widget widget_archive">
+        <h2>Archives</h2>
+        <ul>
+        </ul>
+    </aside>
+
+</div>
+        </div>
+        </div>
+<footer role="contentinfo" class="document-footer contentinfo widgets columns-1">
+
+    <aside class="widget widget_text">
+        <div class="textwidget">
+            <p>© Kodeworx / Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/tosi29/inkblotty" target="_blank">Inkblotty</a></p>
+        </div>
+    </aside>
+</footer>
+</div>
+
+        
+        <script src="http://kodeworx.net/js/asciinema-player.js"></script>
+        
+    </body>
+</html>

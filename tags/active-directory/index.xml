@@ -6,11 +6,7 @@
     <description>Recent content in active directory on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Sep 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://kodeworx.net/tags/active-directory/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 21 Sep 2019 00:00:00 +0000</lastBuildDate><atom:link href="http://kodeworx.net/tags/active-directory/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Openshift - LDAP Auth</title>
       <link>http://kodeworx.net/posts/openshift_ldap_auth/</link>
