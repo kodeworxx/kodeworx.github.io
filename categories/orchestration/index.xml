@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Orchestration on Kodeworx</title>
-    <link>http://kodeworx.net/categories/orchestration/</link>
+    <link>https://kodeworx.net/categories/orchestration/</link>
     <description>Recent content in Orchestration on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Sep 2019 00:00:00 +0000</lastBuildDate><atom:link href="http://kodeworx.net/categories/orchestration/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Sep 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://kodeworx.net/categories/orchestration/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Openshift - LDAP Auth</title>
-      <link>http://kodeworx.net/posts/openshift_ldap_auth/</link>
+      <link>https://kodeworx.net/posts/openshift_ldap_auth/</link>
       <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/posts/openshift_ldap_auth/</guid>
+      <guid>https://kodeworx.net/posts/openshift_ldap_auth/</guid>
       <description>&lt;p&gt;I&amp;rsquo;m posting my experience with configuring LDAP and Active Directory Authentication since it took to me a few hours to understand how it works on Openshift / OKD and how I may debug it.
 First things first, it&amp;rsquo;s best to use a Standalone Master or even Minishift to do all the steps and get to a working config you may use in your HA Cluster.
 Having it said, let&amp;rsquo;s get hands dirty.&lt;/p&gt;</description>

@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Yet another dev &amp; ops blog on Kodeworx</title>
-    <link>http://kodeworx.net/</link>
+    <link>https://kodeworx.net/</link>
     <description>Recent content in Yet another dev &amp; ops blog on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 May 2019 22:57:27 -0300</lastBuildDate><atom:link href="http://kodeworx.net/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 May 2019 22:57:27 -0300</lastBuildDate><atom:link href="https://kodeworx.net/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rancher Desktop - A Docker Desktop Replacement</title>
-      <link>http://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/</link>
+      <link>https://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/</guid>
+      <guid>https://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/</guid>
       <description>&lt;p&gt;So almost everybody is aware about the fresh new Docker Desktop license change.
 For those who are out of this new, since the last Aug 31, Docker changed it&amp;rsquo;s Docker Desktop license model and that&amp;rsquo;s the main changes we need to be concerned:&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Managing AWS the right way - Part 1</title>
-      <link>http://kodeworx.net/posts/managing-aws-the-right-way-part-1/</link>
+      <link>https://kodeworx.net/posts/managing-aws-the-right-way-part-1/</link>
       <pubDate>Sat, 25 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/posts/managing-aws-the-right-way-part-1/</guid>
+      <guid>https://kodeworx.net/posts/managing-aws-the-right-way-part-1/</guid>
       <description>&lt;p&gt;If you are new to AWS or even if you are running it for a long time, you probably have just one account holding all your resources, and I bet you asked yourself at least once if there is any way to better organize your resources, manage their access and split your billing through your company cost structure.&lt;/p&gt;
 &lt;p&gt;Maybe you already manage multiple independent accounts and from time to time has to apply all the security and other good best practices you have just found around on all accounts to have them all standardized.&lt;/p&gt;
 &lt;p&gt;If you catched yourself answering yes for any of these, you are not alone, actually you probably are part of the majority part of AWS consumers, and this is not exactly your fault.&lt;/p&gt;</description>
@@ -30,10 +30,10 @@ For those who are out of this new, since the last Aug 31, Docker changed it&amp;
     
     <item>
       <title>Openshift - LDAP Auth</title>
-      <link>http://kodeworx.net/posts/openshift_ldap_auth/</link>
+      <link>https://kodeworx.net/posts/openshift_ldap_auth/</link>
       <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/posts/openshift_ldap_auth/</guid>
+      <guid>https://kodeworx.net/posts/openshift_ldap_auth/</guid>
       <description>&lt;p&gt;I&amp;rsquo;m posting my experience with configuring LDAP and Active Directory Authentication since it took to me a few hours to understand how it works on Openshift / OKD and how I may debug it.
 First things first, it&amp;rsquo;s best to use a Standalone Master or even Minishift to do all the steps and get to a working config you may use in your HA Cluster.
 Having it said, let&amp;rsquo;s get hands dirty.&lt;/p&gt;</description>

@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Me &amp; Myself on Kodeworx</title>
-    <link>http://kodeworx.net/about/</link>
+    <link>https://kodeworx.net/about/</link>
     <description>Recent content in Me &amp; Myself on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Aug 2020 22:24:00 -0300</lastBuildDate><atom:link href="http://kodeworx.net/about/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Aug 2020 22:24:00 -0300</lastBuildDate><atom:link href="https://kodeworx.net/about/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

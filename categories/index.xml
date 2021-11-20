@@ -2,62 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Kodeworx</title>
-    <link>http://kodeworx.net/categories/</link>
+    <link>https://kodeworx.net/categories/</link>
     <description>Recent content in Categories on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://kodeworx.net/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://kodeworx.net/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Containers</title>
-      <link>http://kodeworx.net/categories/containers/</link>
+      <link>https://kodeworx.net/categories/containers/</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/categories/containers/</guid>
+      <guid>https://kodeworx.net/categories/containers/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker</title>
-      <link>http://kodeworx.net/categories/docker/</link>
+      <link>https://kodeworx.net/categories/docker/</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/categories/docker/</guid>
+      <guid>https://kodeworx.net/categories/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Rancher</title>
-      <link>http://kodeworx.net/categories/rancher/</link>
+      <link>https://kodeworx.net/categories/rancher/</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/categories/rancher/</guid>
+      <guid>https://kodeworx.net/categories/rancher/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Cloud</title>
-      <link>http://kodeworx.net/categories/cloud/</link>
+      <link>https://kodeworx.net/categories/cloud/</link>
       <pubDate>Sat, 25 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/categories/cloud/</guid>
+      <guid>https://kodeworx.net/categories/cloud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Auth</title>
-      <link>http://kodeworx.net/categories/auth/</link>
+      <link>https://kodeworx.net/categories/auth/</link>
       <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/categories/auth/</guid>
+      <guid>https://kodeworx.net/categories/auth/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Orchestration</title>
-      <link>http://kodeworx.net/categories/orchestration/</link>
+      <link>https://kodeworx.net/categories/orchestration/</link>
       <pubDate>Sat, 21 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/categories/orchestration/</guid>
+      <guid>https://kodeworx.net/categories/orchestration/</guid>
       <description></description>
     </item>
     

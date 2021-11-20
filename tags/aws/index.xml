@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>aws on Kodeworx</title>
-    <link>http://kodeworx.net/tags/aws/</link>
+    <link>https://kodeworx.net/tags/aws/</link>
     <description>Recent content in aws on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://kodeworx.net/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://kodeworx.net/tags/aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Managing AWS the right way - Part 1</title>
-      <link>http://kodeworx.net/posts/managing-aws-the-right-way-part-1/</link>
+      <link>https://kodeworx.net/posts/managing-aws-the-right-way-part-1/</link>
       <pubDate>Sat, 25 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/posts/managing-aws-the-right-way-part-1/</guid>
+      <guid>https://kodeworx.net/posts/managing-aws-the-right-way-part-1/</guid>
       <description>&lt;p&gt;If you are new to AWS or even if you are running it for a long time, you probably have just one account holding all your resources, and I bet you asked yourself at least once if there is any way to better organize your resources, manage their access and split your billing through your company cost structure.&lt;/p&gt;
 &lt;p&gt;Maybe you already manage multiple independent accounts and from time to time has to apply all the security and other good best practices you have just found around on all accounts to have them all standardized.&lt;/p&gt;
 &lt;p&gt;If you catched yourself answering yes for any of these, you are not alone, actually you probably are part of the majority part of AWS consumers, and this is not exactly your fault.&lt;/p&gt;</description>

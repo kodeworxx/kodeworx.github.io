@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>docker desktop on Kodeworx</title>
-    <link>http://kodeworx.net/tags/docker-desktop/</link>
+    <link>https://kodeworx.net/tags/docker-desktop/</link>
     <description>Recent content in docker desktop on Kodeworx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://kodeworx.net/tags/docker-desktop/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://kodeworx.net/tags/docker-desktop/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rancher Desktop - A Docker Desktop Replacement</title>
-      <link>http://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/</link>
+      <link>https://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/</guid>
+      <guid>https://kodeworx.net/posts/rancher_desktop_a_docker_desktop_replacement/</guid>
       <description>&lt;p&gt;So almost everybody is aware about the fresh new Docker Desktop license change.
 For those who are out of this new, since the last Aug 31, Docker changed it&amp;rsquo;s Docker Desktop license model and that&amp;rsquo;s the main changes we need to be concerned:&lt;/p&gt;</description>
     </item>
